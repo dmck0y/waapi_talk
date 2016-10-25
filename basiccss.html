@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      padding: 0;
+      margin: 0;
+    }
+
+    .ball {
+      background-color: red;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      float: left;
+      animation-name: bounce;
+      animation-duration: 500ms;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+      animation-timing-function: cubic-bezier(0.845, 0.000, 1.000, 1.000);
+      animation-delay: 0s;
+      will-change: transform;
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+      20% {
+        transform: translateY(25px) scale(1);
+      }
+      50% {
+        transform: translateY(90px) scale(.9, 1);
+      }
+      80% {
+        transform: translateY(175px) scale(.7, 1);
+      }
+      100% {
+        transform: translateY(200px) scale(1, .5);
+      }
+    }
+
+    .sidebar {
+      width: 20%;
+      height: 100vh;
+      background-color: #eee;
+      float: left;
+      padding: 1rem;
+    }
+
+    .playground {
+      width: 80%;
+      height: 100vh;
+      padding: 1rem;
+      float: left;
+    }
+
+    .btn {
+      border: none;
+      padding: .5rem .75rem;
+      border-radius: .2rem;
+      display: block;
+      margin: .5rem;
+      font-size: 1rem;
+      color: #eef;
+      background-color: rgba(0, 170, 0, 1);
+      cursor: pointer;
+    }
+    </style>
+  <title>waapi</title>
+</head>
+<body>
+  <div class="sidebar">
+    <button class="btn" data-js="ball">Add Bouncing Ball</button>
+  </div>
+  <div class="playground" data-js="playground"></div>
+
+  <script>
+  var playground = document.querySelector('[data-js="playground"]'),
+      addButton = document.querySelector('[data-js="ball"]');
+
+  addButton.addEventListener('click', function(e){
+    var newBall = document.createElement('div');
+
+    newBall.classList.add('ball');
+    playground.appendChild(newBall);
+
+  });
+
+  </script>
+</body>
+</html>

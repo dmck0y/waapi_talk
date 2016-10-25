@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      padding: 0;
+      margin: 0;
+    }
+
+    .ball {
+      background-color: red;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      float: left;
+    }
+
+    .sidebar {
+      width: 20%;
+      height: 100vh;
+      background-color: #eee;
+      float: left;
+      padding: 1rem;
+    }
+
+    .playground {
+      width: 80%;
+      height: 100vh;
+      padding: 1rem;
+      float: left;
+    }
+
+    .btn, .btn__blue {
+      border: none;
+      padding: .5rem .75rem;
+      border-radius: .2rem;
+      display: block;
+      margin: .5rem;
+      font-size: 1rem;
+      color: #eef;
+      background-color: rgba(0, 170, 0, 1);
+      cursor: pointer;
+    }
+
+    .btn__blue {
+      background-color: rgba(30, 80, 200, 1);
+    }
+    </style>
+  <title>waapi</title>
+</head>
+<body>
+  <div class="sidebar">
+    <button class="btn" data-js="ball">Add Bouncing Ball</button>
+    <button class="btn__blue" data-js="sync">Sync</button>
+  </div>
+  <div class="playground" data-js="playground"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.2/web-animations-next-lite.min.js"></script>
+  <script>
+  var playground = document.querySelector('[data-js="playground"]'),
+      addButton = document.querySelector('[data-js="ball"]'),
+      syncButton = document.querySelector('[data-js="sync"]'),
+      randomButton = document.querySelector('[data-js="random"]'),
+      basket = [],
+
+      keyframes = [
+        {transform: 'translateY(0) scale(1)', offset: 0},
+        {transform: 'translateY(25px) scale(1)', offset: .2},
+        {transform: 'translateY(90px) scale(.9, 1)', offset: .5},
+        {transform: 'translateY(175px) scale(.7, 1)', offset: .8},
+        {transform: 'translateY(200px) scale(1, .5)', offset: 1}
+      ],
+
+      timing = {
+        duration: 500,
+        iterations: Infinity,
+        direction: 'alternate',
+        easing: 'cubic-bezier(0.845, 0.000, 1.000, 1.000)',
+        delay: 0
+      };
+
+  addButton.addEventListener('click', function(e) {
+    var newBall = document.createElement('div'),
+        basketCount = basket.length;
+
+    newBall.classList.add('ball');
+    playground.appendChild(newBall);
+    basket.push(newBall.animate(keyframes, timing));
+  });
+
+  var sync = function sync (e) {
+    basket.forEach(function(ball) {
+      ball.currentTime = basket[0].currentTime;
+    });
+  };
+
+  var randomize = function randomize (e) {
+    basket.forEach(function(ball) {
+      ball.currentTime = Math.random(360) * 9000;
+    });
+  };
+
+  syncButton.addEventListener('click', function(e) {
+    if (e.currentTarget.innerText === 'Sync') {
+      e.currentTarget.innerText = 'Randomize';
+      sync();
+    } else {
+      e.currentTarget.innerText = 'Sync';
+      randomize();
+    }
+  });
+
+  </script>
+</body>
+</html>

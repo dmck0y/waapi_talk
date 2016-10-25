@@ -1,0 +1,27 @@
+.ball {
+  ...
+  animation-name: bounce;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: cubic-bezier(.845, 0.0, 1.0, 1.0);
+  will-change: transform;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  20% {
+    transform: translateY(25px) scale(1);
+  }
+  50% {
+    transform: translateY(90px) scale(.9, 1);
+  }
+  80% {
+    transform: translateY(175px) scale(.7, 1);
+  }
+  100% {
+    transform: translateY(200px) scale(1, .5);
+  }
+}
