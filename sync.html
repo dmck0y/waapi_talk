@@ -87,25 +87,12 @@
       };
 
   addButton.addEventListener('click', function(e) {
-    var newBall = document.createElement('div'),
-        basketCount = basket.length;
+    var newBall = document.createElement('div');
 
     newBall.classList.add('ball');
     playground.appendChild(newBall);
     basket.push(newBall.animate(keyframes, timing));
   });
-
-  var sync = function sync (e) {
-    basket.forEach(function(ball) {
-      ball.currentTime = basket[0].currentTime;
-    });
-  };
-
-  var randomize = function randomize (e) {
-    basket.forEach(function(ball) {
-      ball.currentTime = Math.random(360) * 9000;
-    });
-  };
 
   syncButton.addEventListener('click', function(e) {
     if (e.currentTarget.innerText === 'Sync') {
@@ -116,6 +103,19 @@
       randomize();
     }
   });
+
+  function sync () {
+    basket.forEach(function(ball) {
+      ball.currentTime = basket[0].currentTime;
+    });
+  };
+
+  function randomize () {
+    basket.forEach(function(ball) {
+      ball.currentTime = Math.random() * 9000;
+    });
+  };
+
 
   </script>
 </body>

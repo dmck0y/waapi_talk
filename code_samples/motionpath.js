@@ -1,4 +1,3 @@
-
 ball.animate(
   [
     {offsetDistance: '100%', motionOffset: '100%', transform: 'scale(1)'},
